@@ -25,14 +25,3 @@ class genAI:
     def process_message(self, text):
         response = self.chat.send_message(text)
         return response.text
-
-    def start_chat(self):
-        """Inicia o chat e processa as perguntas até o usuário dizer 'sair'."""
-        print('Basta falar SAIR para finalizar a conversa')
-        while True:
-            text = input("Qual sua dúvida? ").strip().lower()
-            if text == 'sair':
-                break
-            response = self.process_message(text)
-            print(f'{response}\n---------------------------------------------------------')
-        print("Encerrando chat!")
