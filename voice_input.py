@@ -1,6 +1,6 @@
-import speech_recognition as sr 
+import speech_recognition as sr
 
-class Voice_input:
+class VoiceInput:
     def record(self):
         rec = sr.Recognizer()
         try:
@@ -8,6 +8,11 @@ class Voice_input:
                 rec.adjust_for_ambient_noise(mic)
                 print("Qual sua dúvida?")
                 audio = rec.listen(mic)
+                print("Áudio capturado com sucesso.")
                 return audio
-        except:
-            print('Houve algum erro para captar sua voz! :(')
+        except sr.UnknownValueError:
+            print('Não foi possível entender o áudio.')
+        except sr.RequestError as e:
+            print(f'Erro ao se conectar ao serviço de reconhecimento de voz: {e}')
+        except Exception as e:
+            print(f'Houve um erro inesperado: {e}')

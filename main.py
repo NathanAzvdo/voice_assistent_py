@@ -1,12 +1,27 @@
-from voice_input import Voice_input
-from voice_to_speech import Voice_to_speech
-from api_openai import api_openai
+from voice_input import VoiceInput
+from voice_to_speech import audio_to_speech
+from api_googleAI import genAI
 
-Input = Voice_input()
-speech = Voice_to_speech()
-gpt = api_openai()
+def main():
+    voice_input = VoiceInput()
+    api_client = genAI()
 
-audio = Input.record()
-text = speech.audio_to_speech(audio)
-print(text)
-print(gpt.response(text))
+    print('Basta falar SAIR para finalizar a conversa')
+
+    while True:
+        # Captura o áudio
+        audio = voice_input.record()
+        # Converte o áudio em texto
+        text = audio_to_speech(audio)
+        print(f'Você disse: {text}')
+
+        if text.strip().lower() == 'sair':
+            print("Encerrando chat!")
+            break
+
+        # Obtém resposta da API
+        response = api_client.process_message(text)
+        print(f'Resposta da IA: {response}')
+
+if __name__ == "__main__":
+    main()
